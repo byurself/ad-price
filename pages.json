@@ -1,17 +1,39 @@
 {
-	"pages": [{
-		"path": "pages/index/index",
+	"pages": [ {
+		"path": "pages/home/home",
 		"style": {
-			"navigationBarTitleText": "uni-app"
+			"enablePullDownRefresh": false
 		}
+	}, {
+		"path": "pages/category/category",
+		"style": {
+			"enablePullDownRefresh": false
+		}
+
 	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "冠洲广告写真",
+		"navigationBarBackgroundColor": "#C00000",
+		"backgroundColor": "#FFFFFF",
 		"app-plus": {
 			"background": "#efeff4"
 		}
+	},
+	"tabBar": {
+		"selectedColor": "#C00000",
+		"list": [{
+				"pagePath": "pages/home/home",
+				"text": "首页",
+				"iconPath": "static/tab_icons/home.png",
+				"selectedIconPath": "static/tab_icons/home-active.png"
+			},
+			{
+				"pagePath": "pages/category/category",
+				"text": "分类",
+				"iconPath": "static/tab_icons/category.png",
+				"selectedIconPath": "static/tab_icons/category-active.png"
+			}
+		]
 	}
 }
