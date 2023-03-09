@@ -1,12 +1,12 @@
 <template>
 	<view class="goods-item-container">
-		<image class="goods-img" :src=mainUrl mode="aspectFit"></image>
+		<image class="goods-img" :src=item.mainUrl mode="aspectFit"></image>
 		<view class="goods-info">
 			<view class="goods-title">
-				{{title}}
+				{{item.name}}
 			</view>
 			<view class="goods-price">
-				￥{{price}}
+				￥{{item.price}}
 			</view>
 		</view>
 	</view>
@@ -16,9 +16,12 @@
 	export default {
 		name: "GoodItem",
 		props: {
-			mainUrl: String,
-			title: String,
-			price: String
+			item: {
+				id: Number,
+				mainUrl: String,
+				name: String,
+				price: String
+			}
 		},
 		data() {
 			return {

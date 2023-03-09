@@ -1,5 +1,5 @@
 <template>
-	<view class="home-container">
+	<view>
 		<!-- 轮播图区域 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
 			<!-- 循环渲染轮播图的 item 项 -->
@@ -22,17 +22,14 @@
 				}" itemStyle="padding-left: 15px; padding-right: 15px; height: 34px;" :current="current" @change="tabsChange">
 			</u-tabs>
 		</u-sticky>
-		<swiper class="goods-swiper" :current="swiperCurrent" @change="transition">
+		<swiper class="goods-swiper" :style="{height: swiperHeight + 'px' }" :current="swiperCurrent"
+			@change="transition">
 			<swiper-item class="swiper-item" v-for="(item, index) in list" :key="index">
-				<scroll-view scroll-y style="width: 100%; height: 100%;" @scrolltolower="onreachBottom">
-					<view class="goods-box">
-						<GoodItem v-for="item in itemList" :mainUrl="item.mainUrl" :title="item.name"
-							:price="item.price"></GoodItem>
-					</view>
-				</scroll-view>
+				<view :id="'goods-box' + index" class="goods-box">
+					<GoodItem v-for="item in itemList" :item="item" @click.native="gotoDetail(item)"></GoodItem>
+				</view>
 			</swiper-item>
 		</swiper>
-
 	</view>
 </template>
 
@@ -42,69 +39,46 @@
 			return {
 				// 轮播图数据列表
 				swiperList: [{
-						// 单双层卡槽制作
-						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E5%8D%95%E5%8F%8C%E5%B1%82%E5%8D%A1%E6%A7%BD%E5%88%B6%E4%BD%9C/%E4%B8%BB%E5%9B%BE1.jpg'
+						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/swiper1.jpg'
 					},
 					{
-						// 黑底布
-						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E9%AB%98%E6%B8%85%E5%96%B7%E7%BB%98/%E9%BB%91%E5%BA%95%E5%B8%83/%E4%B8%BB%E5%9B%BE1.jpg'
+						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/swiper2.jpg'
 					},
 					{
-						// 油画布
-						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E9%AB%98%E6%B8%85%E5%96%B7%E7%BB%98/%E6%B2%B9%E7%94%BB%E5%B8%83/%E4%B8%BB%E5%9B%BE1.jpg'
+						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/swiper3.jpg'
 					},
 					{
-						// 户外磨砂贴
-						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E6%88%B7%E5%A4%96%E5%86%99%E7%9C%9F/%E6%88%B7%E5%A4%96%E7%A3%A8%E7%A0%82%E8%B4%B4/%E8%AF%A6%E6%83%851.jpg'
+						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/swiper4.jpg'
+					},
+					{
+						image_src: 'https://guanzhouguanggao.oss-cn-hangzhou.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/swiper5.jpg'
 					}
 				],
 
 				// 分类标签数据列表
 				swiperCurrent: 0,
+				swiperHeight: 0,
 				current: 0,
-				list: [{
-						name: '单双层卡槽制作',
-						url: 'danshuangcengkacaozhizuo'
-					},
+				list: [
 					{
-						name: '覆板类',
-						url: 'fubanlei'
-					},
-					{
-						name: '高清卷材',
-						url: 'gaoqingjuancai'
-					},
-					{
-						name: '高清喷绘',
+						name: '五米高清喷绘',
 						url: 'gaoqingpenhui'
-					},
-					{
-						name: '户外写真',
-						url: 'huwaixiezhen'
-					},
-					{
-						name: '卡布灯箱',
-						url: 'kabudengxiang'
-					},
-					{
-						name: '平板UV雕刻',
-						url: 'pinbanuvdiaoke'
-					},
-					{
-						name: '墙纸材料',
-						url: 'qiangzhicailiao'
 					},
 					{
 						name: '室内写真',
 						url: 'shineixiezhen'
 					},
 					{
-						name: '五米喷绘',
-						url: 'wumipenhui'
+						name: '户外写真',
+						url: 'huwaixiezhen'
 					},
 					{
-						name: '雪弗板字制作',
-						url: 'xuefubanzizhizuo'
+						name: '平板UV雕刻',
+						url: 'pinbanuvdiaoke'
+					},
+					{
+						name: '高清卷材UV',
+						url: 'gaoqingjuancai'
 					},
 					{
 						name: '亚克力水晶字制作',
@@ -113,34 +87,67 @@
 					{
 						name: '亚克力水晶字加雪弗板字制作',
 						url: 'yakelishuijizijiaxuefubanzizhizuo'
+					},
+					{
+						name: '雪弗板字制作',
+						url: 'xuefubanzizhizuo'
+					},
+					{
+						name: '卡布灯箱',
+						url: 'kabudengxiang'
+					},
+					{
+						name: '单双层卡槽',
+						url: 'danshuangcengkacaozhizuo'
+					},
+					{
+						name: '墙纸材料',
+						url: 'qiangzhicailiao'
 					}
 				],
 				itemList: [],
-				goodsList: []
+				goodsList: [],
+				index: 0
 			};
 		},
-		onLoad() {
-			this.getItemList('/danshuangcengkacaozhizuo/list', 0)
+		async onLoad() {
+			await this.getItemList('/gaoqingpenhui/list')
+			this.$nextTick(() => {
+				this.handlerSwiperHeight()
+			})
 		},
 		watch: {
-			current(newVal, oldVal) {
+			async current(newVal, oldVal) {
+				this.index = newVal
 				if (this.goodsList[newVal] == undefined) {
 					let url = '/' + this.list[newVal].url + '/list'
-					this.getItemList(url, newVal)
+					await this.getItemList(url)
 				} else {
 					this.itemList = this.goodsList[newVal]
 				}
+				this.$nextTick(() => {
+					this.handlerSwiperHeight()
+				})
 			}
 		},
 		methods: {
-			async getItemList(url, index) {				
+			handlerSwiperHeight() {
+				let query = uni.createSelectorQuery().in(this);
+				query.select('#goods-box' + this.current).boundingClientRect();
+				query.exec(res => {
+					if (res && res[0]) {
+						this.swiperHeight = res[0].height;
+					}
+				})
+
+			},
+			async getItemList(url) {
 				const {
 					data: res
 				} = await uni.$http.get(url)
 				if (res.code !== 200) return uni.$showMsg()
 				this.itemList = res.data
-				this.goodsList[index] = this.itemList
-				console.log(this.goodsList)
+				this.goodsList[this.index] = this.itemList
 			},
 
 			// tabs通知swiper切换
@@ -155,7 +162,22 @@
 			// scroll-view到底部加载更多
 			onreachBottom() {
 				// console.log(11111111111)
+			},
+
+			// 查看商品详情
+			gotoDetail(item) {
+				let url = this.list[this.index].url
+				uni.navigateTo({
+					url: '/pages/goods_detail/goods_detail?id=' + item.id + '&url=' + url
+				})
 			}
+
+		},
+		// 下拉刷新
+		onPullDownRefresh() {
+			this.goodsList = []
+			let url = '/' + this.list[this.index].url + '/list'
+			this.getItemList(url)
 		}
 	}
 </script>
@@ -167,12 +189,6 @@
 </style>
 
 <style lang="scss">
-	.home-container {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-	}
-
 	// 轮播图
 	swiper {
 
@@ -180,17 +196,6 @@
 		image {
 			width: 100%;
 			height: 100%;
-		}
-	}
-
-	.nav-list {
-		display: flex;
-		justify-content: space-around;
-		margin: 15px 0;
-
-		.nav-img {
-			width: 128rpx;
-			height: 140rpx;
 		}
 	}
 
@@ -202,7 +207,6 @@
 	}
 
 	.goods-swiper {
-		flex: 1;
 		height: 100%;
 		padding: 20rpx 0 0;
 	}

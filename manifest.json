@@ -1,6 +1,6 @@
 {
-    "name" : "ad-price",
-    "appid" : "",
+    "name" : "冠洲广告",
+    "appid" : "__UNI__CF10AC5",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -49,11 +49,10 @@
     "quickapp" : {},
     /* 快应用特有相关 */
     "mp-weixin" : {
-        /* 小程序特有相关 */
-        "appid" : "wx98bc61b52d38a518",
+        "appid" : "wx294f8b6815b6766d",
         "setting" : {
             "urlCheck" : true,
-			"checkSiteMao": false
+            "checkSiteMap" : false
         },
         "usingComponents" : true
     },
